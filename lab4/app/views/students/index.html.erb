@@ -1,3 +1,22 @@
+<head>
+<script language="javascript">
+function printdiv(printpage)
+{
+var headstr = "<html><head><title></title></head><body>";
+var footstr = "</body>";
+var newstr = document.all.item(printpage).innerHTML;
+var oldstr = document.body.innerHTML;
+document.body.innerHTML = newstr;
+window.print();
+document.body.innerHTML = oldstr;
+return false;
+}
+</script>
+</head>
+
+<body>
+<div id='div_print'>
+
 <h1>Grading Worksheet</h1>
 <table>
   <tr>
@@ -9,9 +28,6 @@
     <th>Lab(10%)</th>
     <th>Class(10%)</th>
     <th>Final</th>
-    <th></th>
-    <th></th>
-    <th></th>
   </tr>
 <% @students.each do |student| %>
 
@@ -24,15 +40,18 @@
     <td><%= student.labgrade %>%</td>
     <td><%= student.classgrade %>%</td>
     <td><%= student.project+student.finalgrade+student.labgrade+student.classgrade %>%</td>
-    <td><%= link_to 'Edit', edit_student_path(student) %>
-    <%= link_to 'Show', student %>
-    <%= link_to 'Destroy', student, method: :delete, data: { confirm: 'Are you sure?' } %>
-</td>
-   </td>
   </tr>
 <% end %>
 </table>
 
-<br />
+</div>
 
-<%= link_to 'New Student', new_student_path %>
+<br />
+<table>
+  <tr>
+    <td id="butt"></td>
+    <td><%= link_to 'Back', list_path(1) %></td>
+    <td><input align="right" name="b_print" type="button" class="ipt" onClick="printdiv('div_print');" value=" Print "> </td>
+  </tr>
+</table>
+</body>
